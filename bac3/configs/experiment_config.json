@@ -1,0 +1,45 @@
+{
+  "random_seed": 42,
+  "thresholds": {
+    "default_centipawns": 200,
+    "experiment_thresholds": [150, 200, 300]
+  },
+  "dataset": {
+    "train_ratio": 0.70,
+    "val_ratio": 0.15,
+    "test_ratio": 0.15,
+    "split_column": "game_id"
+  },
+  "features": {
+    "position_features": [
+      "eval_before",
+      "eval_diff_prev_move",
+      "material_balance",
+      "piece_count",
+      "pawn_count",
+      "legal_checks_count",
+      "legal_captures_count",
+      "attacked_pieces_count",
+      "game_phase"
+    ],
+    "meta_features": [
+      "player_rating",
+      "opponent_rating",
+      "rating_diff",
+      "time_control_base",
+      "time_control_inc"
+    ]
+  },
+  "model_params": {
+    "xgboost": {
+      "n_estimators": 200,
+      "max_depth": 5,
+      "learning_rate": 0.05,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8,
+      "scale_pos_weight": 10.0,
+      "eval_metric": "auc",
+      "random_state": 42
+    }
+  }
+}
