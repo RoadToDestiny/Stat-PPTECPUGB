@@ -1,0 +1,4 @@
+python-chess>=1.999
+requests>=2.31
+zstandard>=0.22
+pytest>=8.0
