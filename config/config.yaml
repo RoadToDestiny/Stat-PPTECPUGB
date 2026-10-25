@@ -1,0 +1,61 @@
+# Единая конфигурация параметров исследования
+# Прогнозирование вероятности шахматных ошибок на основе XGBoost
+
+stockfish:
+  executable: "stockfish"
+  version: "Stockfish 17"
+  depth: 18
+  timeout: 30.0
+  threads: 2
+  hash_mb: 256
+  mate_score_cp: 100000
+
+filter:
+  min_elo: 1600
+  max_elo: 2800
+  min_base_seconds: 600
+  allowed_time_controls: null
+  min_full_moves: 10
+  max_full_moves: 120
+
+labeling:
+  default_threshold_cp: 200.0
+  sensitivity_thresholds:
+    - 150.0
+    - 200.0
+    - 300.0
+  exclude_mates: true
+
+dataset:
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  split_column: "game_id"
+  random_seed: 42
+
+features:
+  position_features:
+    - "eval_before"
+    - "eval_diff_prev_move"
+    - "material_balance"
+    - "piece_count"
+    - "pawn_count"
+    - "legal_checks_count"
+    - "legal_captures_count"
+    - "attacked_pieces_count"
+    - "game_phase"
+  meta_features:
+    - "player_rating"
+    - "opponent_rating"
+    - "rating_diff"
+    - "time_control_base"
+    - "time_control_inc"
+
+model:
+  n_estimators: 200
+  max_depth: 5
+  learning_rate: 0.05
+  subsample: 0.8
+  colsample_bytree: 0.8
+  eval_metric: "auc"
+  random_state: 42

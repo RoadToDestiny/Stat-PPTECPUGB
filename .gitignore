@@ -1,12 +1,40 @@
+# Python bytecode and caches
 __pycache__/
 *.py[cod]
+*$py.class
+*.so
 
+# Environments
 venv/
 .venv/
 env/
+ENV/
+.env
+
+# IDE and editors
 .vscode/
 .idea/
+*.swp
+*.swo
 
-*.env
+# Project Data (raw PGNs and large processed tables)
+data/raw/*.pgn
+data/raw/*.zst
+data/raw/*.gz
+data/interim/*
+data/processed/*.csv
+data/processed/*.parquet
+data/splits/*.csv
 
+# Artifacts & Model weights
+artifacts/models/*.json
+artifacts/models/*.ubj
+artifacts/runs/*
+
+# Documentation / personal notes
 /!info/
+
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/

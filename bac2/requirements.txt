@@ -1,4 +1,0 @@
-python-chess
-pandas
-numpy
-pytest
