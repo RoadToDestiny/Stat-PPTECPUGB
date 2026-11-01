@@ -97,3 +97,25 @@ pip install -r requirements.txt
 ```bash
 python -m pytest tests -v
 ```
+
+## 5. Проверка Stockfish и анализ партии
+
+Stockfish устанавливается отдельно от Python-пакетов. Укажите путь к
+исполняемому файлу через `STOCKFISH_PATH` (или оставьте `stockfish`, если он
+добавлен в `PATH`):
+
+```python
+import chess.pgn
+from chess_error_prediction.engine import StockfishConfig, StockfishEngine, analyze_game
+
+with open("data/raw/game.pgn", encoding="utf-8") as handle:
+    game = chess.pgn.read_game(handle)
+
+with StockfishEngine(StockfishConfig.from_environment()) as engine:
+    print(engine.verify())
+    records = list(analyze_game(game, engine, threshold_cp=200))
+```
+
+`analyze_game` оценивает каждую позицию до и после хода на фиксированной
+глубине (по умолчанию 18), сохраняет матовые оценки отдельно и рассчитывает
+потерю в сантипешках с точки зрения игрока, который сделал ход.
